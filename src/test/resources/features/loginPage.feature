@@ -1,7 +1,6 @@
 Feature: Instagram App Test Automation on Android Operating System
   Scenario: Instagram app login tests
     Given Instagram application opens
-
     When Login with only email
     Then Verification of error message stating password is required
 

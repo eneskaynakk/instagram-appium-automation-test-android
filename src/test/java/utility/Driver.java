@@ -1,17 +1,15 @@
 package utility;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.service.local.AppiumDriverLocalService;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Driver {
     private static AndroidDriver driver;
-    public static AppiumDriverLocalService service;
     private final static String platformName = ConfigReader.getProperty("platformName");
     private final static String automationName = ConfigReader.getProperty("automationName");
     private final static String deviceName = ConfigReader.getProperty("deviceName");
@@ -49,10 +47,11 @@ public class Driver {
         if (driver != null) {
             driver.quit();
             driver = null;
+            try {
+                Runtime.getRuntime().exec("adb shell am force-stop " + appPackage);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
-    }
-
-    public static void closeService() {
-        service.stop();
     }
 }

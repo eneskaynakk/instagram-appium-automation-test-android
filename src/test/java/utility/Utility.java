@@ -14,8 +14,9 @@ public class Utility{
 
     public void clickElementWithWait(WebElement element) {
         try {
-            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5));
-            wait.until(ExpectedConditions.visibilityOf(element)).click();
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.visibilityOf(element));
+            Driver.getDriver().executeScript("mobile: clickGesture", ImmutableMap.of("elementId", ((RemoteWebElement) element).getId()));
         } catch (TimeoutException | NoSuchElementException e) {
             ScreenshotSendEmail.screenshotMailer(element);
         }
@@ -28,7 +29,7 @@ public class Utility{
 
     public void scrollAndClickElement(WebElement element) {
         try {
-            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5));
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
             JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
             js.executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
             wait.until(ExpectedConditions.visibilityOf(element)).click();
@@ -39,7 +40,7 @@ public class Utility{
 
     public void doubleClickElement(WebElement element) {
         try {
-            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5));
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
             wait.until(ExpectedConditions.visibilityOf(element));
             Driver.getDriver().executeScript("mobile: doubleClickGesture", ImmutableMap.of("elementId", ((RemoteWebElement) element).getId()));
         } catch (TimeoutException | NoSuchElementException e) {
@@ -49,16 +50,28 @@ public class Utility{
 
     public void sendKeyToElement(WebElement element, String text) {
         try {
-            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5));
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
             wait.until(ExpectedConditions.visibilityOf(element));
-            action.sendKeys(text).perform();
+            action.sendKeys(element,text).perform();
+        } catch (TimeoutException | NoSuchElementException e) {
+            ScreenshotSendEmail.screenshotMailer(element);
+        }
+    }
+
+    public void clearInputElement(WebElement element) {
+        try {
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.visibilityOf(element));
+            for (int i = 0; i < 30; i++) {
+                action.sendKeys(Keys.END).sendKeys(Keys.BACK_SPACE).perform();
+            }
         } catch (TimeoutException | NoSuchElementException e) {
             ScreenshotSendEmail.screenshotMailer(element);
         }
     }
 
     public String getTextElement(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
         return wait.until(ExpectedConditions.visibilityOf(element)).getText();
     }
 

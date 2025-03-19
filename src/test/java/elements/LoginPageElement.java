@@ -20,4 +20,16 @@ public class LoginPageElement {
 
     @AndroidFindBy(uiAutomator = "new UiSelector().className(\"android.view.ViewGroup\").instance(15)")
     public WebElement loginButton;
+
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Enter your password to log in\")")
+    public WebElement emptyPasswordErrorMessage;
+
+    @AndroidFindBy(uiAutomator = "new UiSelector().text(\"Enter your username, email or mobile number to log in\")")
+    public WebElement emptyEmailErrorMessage;
+
+    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"android:id/message\")")
+    public WebElement wrongCredentialErrorMessage;
+
+    @AndroidFindBy(id = "android:id/button1")
+    public WebElement credentialErrorMessageButton;
 }
