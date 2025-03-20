@@ -9,9 +9,9 @@ public class LoginPageStepDef {
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
 
-    @Given("Instagram application opens")
+    @Given("Instagram login page opens")
     public void instagramApp() {
-        System.out.println("You are on the Instagram app");
+        System.out.println("You are on the Instagram login page");
     }
 
     @When("Login with only email")

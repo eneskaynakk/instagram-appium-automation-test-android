@@ -8,7 +8,7 @@ import utility.Driver;
 
 public class LoginPageElement {
 
-    public LoginPageElement(){
+    public LoginPageElement() {
         PageFactory.initElements(new AppiumFieldDecorator(Driver.getDriver()),this);
     }
 

@@ -1,40 +1,49 @@
 package utility;
 
 import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
-public class Utility{
+public class Utility {
     private final Actions action = new Actions(Driver.getDriver());
+    private static final Logger logger = LoggerFactory.getLogger(Utility.class);
 
     public void clickElementWithWait(WebElement element) {
         try {
             WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
             wait.until(ExpectedConditions.visibilityOf(element));
-            Driver.getDriver().executeScript("mobile: clickGesture", ImmutableMap.of("elementId", ((RemoteWebElement) element).getId()));
+
+            Driver.getDriver().executeScript("mobile: clickGesture", ImmutableMap.of(
+                    "elementId", ((RemoteWebElement) element).getId()));
         } catch (TimeoutException | NoSuchElementException e) {
             ScreenshotSendEmail.screenshotMailer(element);
         }
     }
 
-    public void scrollToCenter(WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
-        js.executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
-    }
-
-    public void scrollAndClickElement(WebElement element) {
-        try {
-            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
-            JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
-            js.executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
-            wait.until(ExpectedConditions.visibilityOf(element)).click();
-        } catch (TimeoutException | NoSuchElementException e) {
-            ScreenshotSendEmail.screenshotMailer(element);
+    public static void scrollWithCoordinates(WebElement element, int left, int top, int width, int height, String direction, int x, int speed) {
+        while (true) {
+            try {
+                Driver.getDriver().executeScript("mobile: scrollGesture", ImmutableMap.of(
+                        "left", left, "top", top, "width", width, "height", height,
+                        "direction", direction,
+                        "percent", x,
+                        "speed", speed
+                ));
+                if (element.isDisplayed()) {
+                    break;
+                }
+            } catch (Exception e) {
+                logger.info("Element not yet displayed, continuing to scroll...");
+            }
         }
     }
 
@@ -73,6 +82,10 @@ public class Utility{
     public String getTextElement(WebElement element) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
         return wait.until(ExpectedConditions.visibilityOf(element)).getText();
+    }
+
+    public void pressBackButton() {
+        Driver.getDriver().pressKey(new KeyEvent(AndroidKey.BACK));
     }
 
     public static void waits(int milis) {
