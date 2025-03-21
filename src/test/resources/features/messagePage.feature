@@ -1,4 +1,3 @@
-
 Feature: Instagram App Message Page Test Automation on Android Operating System
   Scenario: Instagram app message page tests
     Given Instagram message page opens

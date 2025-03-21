@@ -26,7 +26,7 @@ public class ConfigReader {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Configuration dosyası yüklenemedi!");
+            throw new RuntimeException("Failed to load configuration file!");
         }
     }
 
@@ -39,7 +39,7 @@ public class ConfigReader {
     public static String getProperty(String key) {
         String value = properties.getProperty(key);
         if (value == null) {
-            System.out.println("Anahtar bulunamadı: " + key);
+            System.out.println("Key not found: " + key);
         }
         return value;
     }

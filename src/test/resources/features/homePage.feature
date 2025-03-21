@@ -1,4 +1,3 @@
-@post
 Feature: Instagram App Post Actions Test Automation on Android Operating System
   Scenario: Instagram app post actions tests
     Given Instagram application homepage opens

@@ -43,5 +43,8 @@ public class HomePageElement {
     public WebElement storyNextButton;
 
     @AndroidFindBy(id = "com.instagram.android:id/action_bar_inbox_button")
-    public WebElement messageButton;
+    public WebElement messagePageButton;
+
+    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"com.instagram.android:id/tab_icon\").instance(2)")
+    public WebElement searchPageButton;
 }

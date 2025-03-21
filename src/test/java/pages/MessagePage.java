@@ -8,15 +8,15 @@ public class MessagePage extends Utility {
     HomePageElement homePageElement = new HomePageElement();
     MessagePageElement messagePageElement = new MessagePageElement();
 
-    public void goToMessagePage(){
-        clickElementWithWait(homePageElement.messageButton);
+    public void goToMessagePage() {
+        clickElementWithWait(homePageElement.messagePageButton);
     }
 
-    public String messagePageVerification(){
+    public String messagePageVerification() {
         return getTextElement(messagePageElement.messagesText);
     }
 
-    public void addNote(String music, String note){
+    public void addNote(String music, String note) {
         clickElementWithWait(messagePageElement.noteBox);
 
         clickElementWithWait(messagePageElement.musicButton);
@@ -29,18 +29,18 @@ public class MessagePage extends Utility {
         clickElementWithWait(messagePageElement.shareButton);
     }
 
-    public String addNoteVerification(){
+    public String addNoteVerification() {
         return getTextElement(messagePageElement.musicArtistText);
     }
 
-    public void sendMessage(String message){
+    public void sendMessage(String message) {
         clickElementWithWait(messagePageElement.myMessageBox);
         clickElementWithWait(messagePageElement.messageWritingBox);
         sendKeyToElement(messagePageElement.messageWritingBox, message);
         clickElementWithWait(messagePageElement.sendMessageButton);
     }
 
-    public String verifySentMessage(){
+    public String verifySentMessage() {
         return getTextElement(messagePageElement.myMessage);
     }
 }

@@ -1,5 +1,6 @@
 package utility;
 
+import io.qameta.allure.Allure;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
@@ -10,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -21,11 +23,14 @@ public class ScreenshotSendEmail extends Utility {
 
     public static void screenshotMailer(WebElement element) {
         try {
+            try (FileInputStream screenshotStream = new FileInputStream(ScreenshotSendEmail.takeScreenshot())) {
+                Allure.addAttachment("Screenshot", "image/png", screenshotStream, ".png");
+            }
             sendingMail(ScreenshotSendEmail.takeScreenshot());
         } catch (IOException | EmailException ex) {
             ex.printStackTrace();
         }
-        Assert.fail("Öge Bulunamadı: " + element.toString());
+        Assert.fail("Element not found: " + element.toString());
     }
 
     public static File takeScreenshot() throws IOException {
@@ -54,8 +59,8 @@ public class ScreenshotSendEmail extends Utility {
         email.setSmtpPort(465);
         email.setAuthenticator(new DefaultAuthenticator(ConfigReader.getProperty("your_email"), ConfigReader.getProperty("app_passwords")));
         email.setSSLOnConnect(true);
-        email.setFrom(ConfigReader.getProperty("your_email"), "Trendyol Test Automation");
-        email.setSubject("Trendyol Selenium Test Raporu");
+        email.setFrom(ConfigReader.getProperty("your_email"), "Instagram Appium Android Test Automation");
+        email.setSubject("Instagram Appium Android Test Raporu");
         email.setMsg("Test basarisiz oldu. Ekteki ekran görüntüsüne bakabilirsiniz.");
 
         EmailAttachment attachment = new EmailAttachment();
