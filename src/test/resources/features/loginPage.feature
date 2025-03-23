@@ -1,3 +1,4 @@
+@login
 Feature: Instagram App Login Test Automation on Android Operating System
   Scenario: Instagram app login tests
     Given Instagram login page opens

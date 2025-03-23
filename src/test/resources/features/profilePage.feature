@@ -1,3 +1,4 @@
+@profile
 Feature: Instagram App Search And Profile Page Test Automation on Android Operating System
   Scenario: Instagram app search and profile page tests
     Given Instagram search page is opened

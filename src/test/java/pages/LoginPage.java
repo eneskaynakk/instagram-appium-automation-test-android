@@ -58,8 +58,6 @@ public class LoginPage extends Utility {
     }
 
     public void loginProcess() {
-        clickElementWithWait(loginPageElement.email);
-        sendKeyToElement(loginPageElement.email, userLoginEmail);
         clickElementWithWait(loginPageElement.password);
         sendKeyToElement(loginPageElement.password, userLoginPassword);
         clickElementWithWait(loginPageElement.loginButton);

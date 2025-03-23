@@ -3,19 +3,19 @@ package utility;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
 public class Utility {
     private final Actions action = new Actions(Driver.getDriver());
-    private static final Logger logger = LoggerFactory.getLogger(Utility.class);
+    private static final Logger logger = LogManager.getLogger(Utility.class.getName());
 
     public void clickElementWithWait(WebElement element) {
         try {

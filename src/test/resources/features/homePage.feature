@@ -1,5 +1,6 @@
-Feature: Instagram App Post Actions Test Automation on Android Operating System
-  Scenario: Instagram app post actions tests
+@home
+Feature: Instagram App Homepage Post Actions Test Automation on Android Operating System
+  Scenario: Instagram app homepage post actions tests
     Given Instagram application homepage opens
     When Post is liked
 

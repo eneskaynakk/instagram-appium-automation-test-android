@@ -5,6 +5,8 @@ import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
@@ -20,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ScreenshotSendEmail extends Utility {
     private static File screenshotFile = null;
+    private static final Logger logger = LogManager.getLogger(ScreenshotSendEmail.class.getName());
 
     public static void screenshotMailer(WebElement element) {
         try {
@@ -30,6 +33,7 @@ public class ScreenshotSendEmail extends Utility {
         } catch (IOException | EmailException ex) {
             ex.printStackTrace();
         }
+        logger.error("Element not found");
         Assert.fail("Element not found: " + element.toString());
     }
 
