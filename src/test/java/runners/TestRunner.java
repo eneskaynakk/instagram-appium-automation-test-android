@@ -10,7 +10,7 @@ import io.cucumber.testng.CucumberOptions;
                 "pretty",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
         },
-        tags = "@home"
+        tags = "@login"
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 }

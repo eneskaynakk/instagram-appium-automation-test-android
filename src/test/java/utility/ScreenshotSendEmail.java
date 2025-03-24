@@ -8,7 +8,6 @@ import org.apache.commons.mail.HtmlEmail;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -46,7 +45,7 @@ public class ScreenshotSendEmail extends Utility {
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
         String formattedDate = myDateObj.format(myFormatObj);
 
-        File takeScreenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.FILE);
+        File takeScreenshot = Driver.getDriver().getScreenshotAs(OutputType.FILE);
         File folder = new File("src/test/java/screenshots");
         if (!folder.exists()) {
             folder.mkdirs();
